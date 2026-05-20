@@ -1,0 +1,73 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+  <diagram name="Página-1" id="rAL4uyEMiUOU-pLg6cAL">
+    <mxGraphModel dx="1426" dy="841" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ytEIXC0MEugCA2_G49iE-1" value="Usuario" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="10" width="160" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-2" value="- id: int&lt;div&gt;- nombre: String&lt;/div&gt;&lt;div&gt;- contrasena: String&lt;/div&gt;&lt;div&gt;- rol: Enum&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-1">
+          <mxGeometry y="26" width="160" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-1">
+          <mxGeometry y="90" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-4" value="+ getId(): int&lt;div&gt;+ getNombre(): String&lt;/div&gt;&lt;div&gt;+ getContrasena(): String&lt;/div&gt;&lt;div&gt;+ getRol(): Enum&lt;/div&gt;&lt;div&gt;+ toString(): String&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-1">
+          <mxGeometry y="98" width="160" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-9" value="Material" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="10" width="190" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-10" value="- id: int&lt;div&gt;- nombre: String&lt;/div&gt;&lt;div&gt;- descripcion: String&lt;/div&gt;&lt;div&gt;- id_categoria: int&lt;/div&gt;&lt;div&gt;- id_subcategoria: int&lt;/div&gt;&lt;div&gt;- id_estado: int&lt;/div&gt;&lt;div&gt;- cantidad: int&lt;/div&gt;&lt;div&gt;- id_ubicacion: int&lt;/div&gt;&lt;div&gt;- fecha_alta:LocalDate&lt;/div&gt;&lt;div&gt;- observaciones: String&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-9">
+          <mxGeometry y="26" width="190" height="154" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-11" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-9">
+          <mxGeometry y="180" width="190" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-12" value="+ getId(): int&lt;div&gt;+ getNombre(): String&lt;/div&gt;&lt;div&gt;+ getDescripcion(): String&lt;/div&gt;&lt;div&gt;+ getId_categoria(): int&lt;/div&gt;&lt;div&gt;+ getId_subcategoria(): int&lt;/div&gt;&lt;div&gt;+ getId_estado(): int&lt;/div&gt;&lt;div&gt;+ getCantidad(): int&lt;/div&gt;&lt;div&gt;+ getId_ubicacion(): int&lt;/div&gt;&lt;div&gt;+ getFecha_alta(): LocalDate&lt;/div&gt;&lt;div&gt;+ getObservaciones(): String&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-9">
+          <mxGeometry y="188" width="190" height="152" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-13" value="AccesoBaseDatos" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="210" width="230" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-14" value="- bd: String&lt;div&gt;- url: String&lt;/div&gt;&lt;div&gt;- usuario: Sttring&lt;/div&gt;&lt;div&gt;- clave: String&lt;/div&gt;&lt;div&gt;- conn: Connection&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-13">
+          <mxGeometry y="26" width="230" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-15" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-13">
+          <mxGeometry y="110" width="230" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-16" value="- cargarConfiguracion(): void&lt;div&gt;- abrirConexion(): void&lt;/div&gt;&lt;div&gt;+ getConn(): Connection&lt;/div&gt;&lt;div&gt;+ cerrar(): boolean&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-13">
+          <mxGeometry y="118" width="230" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-17" value="UsuarioDAO" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="410" width="280" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-19" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-17">
+          <mxGeometry y="26" width="280" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-20" value="&lt;div&gt;&lt;div&gt;- getConexion(): Connection&lt;/div&gt;&lt;/div&gt;- crearUsuario(ResultSet rs): Usuario&lt;div&gt;+ anadirProfe(Usuario u): void&lt;/div&gt;&lt;div&gt;+ existeUsuario(String nombre): boolean&lt;/div&gt;&lt;div&gt;+ eliminarProfe(String nombre): boolean&lt;/div&gt;&lt;div&gt;+ verUsuarios(): List&amp;lt;Usuario&amp;gt;&lt;br&gt;+ login(String nombre, String contrasena): Usuario&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-17">
+          <mxGeometry y="34" width="280" height="176" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-21" value="MaterialDAO&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="630" width="300" height="176" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-23" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-21">
+          <mxGeometry y="26" width="300" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-24" value="&lt;div&gt;- getConexion(): Connection&lt;/div&gt;&lt;div&gt;- crearMaterial(ResultSet): Material&lt;/div&gt;&lt;div&gt;+ actualizarMaterial(Material m): boolean&lt;/div&gt;&lt;div&gt;+ insertarMaterial(Material m): void&lt;/div&gt;&lt;div&gt;+ verInventario(): List&amp;lt;Material&amp;gt;&lt;/div&gt;&lt;div&gt;+ filtrarPorNombre(String nombre): List&amp;lt;Material&amp;gt;&lt;/div&gt;&lt;div&gt;+ filtrarPorCategoria(String categoria): List&amp;lt;Material&amp;gt;&lt;/div&gt;&lt;div&gt;+ filtrarPorEstado(String estado): List&amp;lt;Material&amp;gt;&lt;/div&gt;&lt;div&gt;+ filtrarPorCodigo(int id): List&amp;lt;Material&amp;gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-21">
+          <mxGeometry y="34" width="300" height="142" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-25" value="LoginFrame" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="870" width="310" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-27" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-25">
+          <mxGeometry y="26" width="310" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="ytEIXC0MEugCA2_G49iE-28" value="- initComponents(): void&lt;div&gt;-&amp;nbsp;btnEntrarActionPerformed(ActionEvent evt): void&lt;/div&gt;&lt;div&gt;-&amp;nbsp;txtNombreActionPerformed(ActionEvent evt): void&lt;/div&gt;&lt;div&gt;- txtContrasenaActionPerformed(ActionEvent evt): void&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ytEIXC0MEugCA2_G49iE-25">
+          <mxGeometry y="34" width="310" height="66" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

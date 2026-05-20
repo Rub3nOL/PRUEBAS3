@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Armario — Gestión Taller</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<main class="container">
+
+  <header class="header">
+    <span class="header-title">ALMACÉN — TALLER</span>
+    <span class="header-sub">Selecciona un hueco para ver su contenido</span>
+  </header>
+
+  <div class="armario">
+
+    <!-- ── ESTANTES SUPERIORES (A1–B4, celdas 1–8) ── -->
+    <section class="bloque-superior">
+
+      <div class="fila fila-4">
+        <div class="celda abierto" data-codigo="1" data-label="Estante A1"><span class="c-lbl">A1</span></div>
+        <div class="celda abierto" data-codigo="2" data-label="Estante A2"><span class="c-lbl">A2</span></div>
+        <div class="celda abierto" data-codigo="3" data-label="Estante A3"><span class="c-lbl">A3</span></div>
+        <div class="celda abierto" data-codigo="4" data-label="Estante A4"><span class="c-lbl">A4</span></div>
+      </div>
+
+      <div class="fila fila-4">
+        <div class="celda abierto" data-codigo="5" data-label="Estante B1"><span class="c-lbl">B1</span></div>
+        <div class="celda abierto" data-codigo="6" data-label="Estante B2"><span class="c-lbl">B2</span></div>
+        <div class="celda abierto" data-codigo="7" data-label="Estante B3"><span class="c-lbl">B3</span></div>
+        <div class="celda abierto" data-codigo="8" data-label="Estante B4"><span class="c-lbl">B4</span></div>
+      </div>
+
+    </section>
+
+    <div class="separador"></div>
+
+    <!-- ── BLOQUE CENTRAL: puerta Taller | zona interior | puerta DTD ── -->
+    <section class="bloque-central">
+
+      <!-- Armario alto izquierdo — Taller -->
+      <div class="celda armario-alto" data-codigo="9" data-label="Armario Taller">
+        <span class="c-lbl">TALLER</span>
+        <span class="c-sub">puerta</span>
+      </div>
+
+      <!-- Zona central: estantes C-E + armarios bajos F -->
+      <div class="zona-interior">
+
+        <div class="fila fila-3">
+          <div class="celda abierto" data-codigo="10" data-label="Estante C1"><span class="c-lbl">C1</span></div>
+          <div class="celda abierto" data-codigo="11" data-label="Estante C2"><span class="c-lbl">C2</span></div>
+          <div class="celda abierto" data-codigo="12" data-label="Estante C3"><span class="c-lbl">C3</span></div>
+        </div>
+
+        <div class="fila fila-3">
+          <div class="celda abierto" data-codigo="13" data-label="Estante D1"><span class="c-lbl">D1</span></div>
+          <div class="celda abierto" data-codigo="14" data-label="Estante D2"><span class="c-lbl">D2</span></div>
+          <div class="celda abierto" data-codigo="15" data-label="Estante D3"><span class="c-lbl">D3</span></div>
+        </div>
+
+        <div class="fila fila-3">
+          <div class="celda abierto" data-codigo="16" data-label="Estante E1"><span class="c-lbl">E1</span></div>
+          <div class="celda abierto" data-codigo="17" data-label="Estante E2"><span class="c-lbl">E2</span></div>
+          <div class="celda abierto" data-codigo="18" data-label="Estante E3"><span class="c-lbl">E3</span></div>
+        </div>
+
+        <div class="fila fila-3 fila-bajo">
+          <div class="celda armario-bajo" data-codigo="19" data-label="Armario bajo F1"><span class="c-lbl">F1</span></div>
+          <div class="celda armario-bajo" data-codigo="20" data-label="Armario bajo F2"><span class="c-lbl">F2</span></div>
+          <div class="celda armario-bajo" data-codigo="21" data-label="Armario bajo F3"><span class="c-lbl">F3</span></div>
+        </div>
+
+      </div>
+
+      <!-- Armario alto derecho — DTD -->
+      <div class="celda armario-alto" data-codigo="22" data-label="Armario DTD">
+        <span class="c-lbl">DTD</span>
+        <span class="c-sub">puerta</span>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- ── PANEL DE INFORMACIÓN (gestionado por JS) ── -->
+  <div class="info-panel" id="info-panel">
+    <div class="info-inner">
+
+      <div class="info-content">
+        <div class="info-header">
+          <span class="info-codigo" id="info-codigo"></span>
+          <span class="info-title"  id="info-title"></span>
+        </div>
+
+        <div class="info-loading" id="info-loading">
+          <span class="spinner"></span>
+          <span>Cargando contenido…</span>
+        </div>
+
+        <div class="info-error" id="info-error"></div>
+
+        <div class="info-tabla-wrap" id="info-tabla-wrap">
+          <table class="info-tabla">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Categoría / Subcategoría</th>
+                <th>Cantidad</th>
+                <th>Estado</th>
+                <th>Observaciones</th>
+              </tr>
+            </thead>
+            <tbody id="info-tbody"></tbody>
+          </table>
+          <p class="info-vacio" id="info-vacio">Esta ubicación no tiene material registrado.</p>
+        </div>
+      </div>
+
+      <button class="info-close" id="info-close" aria-label="Cerrar">✕</button>
+    </div>
+  </div>
+
+</main>
+<script src="main.js"></script>
+</body>
+</html>

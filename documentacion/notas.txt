@@ -1,0 +1,2 @@
+Todos los equipos parten de un Repositorio con la misma estructura y contenido.
+A partir del mismo, cada equipo es responsable del mantenimiento y evolución del mismo.

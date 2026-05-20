@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>INVENTARIUM — Acceso</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@50;300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body class="login-body">
+  <div class="login-wrap">
+  <h1 class="login-title">INVENT<span class="a-lambda">&#x039B;</span>RI<span class="login-accent">UM</span></h1>
+  <main class="login-card">
+    <p class="login-sys">ACCESO AL SISTEMA</p>
+    <div id="err-msg" class="login-err" style="display:none">Usuario o contraseña incorrectos.</div>
+    <form action="/api/login" method="POST">
+      <div class="login-field">
+        <label for="usuario">USUARIO</label>
+        <input id="usuario" type="text" name="usuario" autocomplete="username" spellcheck="false" required/>
+      </div>
+      <div class="login-field">
+        <label for="contrasena">CONTRASEÑA</label>
+        <input id="contrasena" type="password" name="contrasena" autocomplete="current-password" required/>
+      </div>
+      <button type="submit" class="login-btn">ACCEDER →</button>
+    </form>
+  </main>
+  </div>
+  <script>
+    if (new URLSearchParams(location.search).get('error')) {
+      document.getElementById('err-msg').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
