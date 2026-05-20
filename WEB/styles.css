@@ -709,6 +709,13 @@ a.zona:active { filter: brightness(0.9); }
 
 .pendiente-back:hover { text-decoration: underline; }
 
+.error404-img {
+  width: 320px;
+  max-width: 80vw;
+  image-rendering: auto;
+  filter: drop-shadow(0 4px 18px rgba(0,0,0,0.5));
+}
+
 /* ============================================================
    LOGIN (index.html)
    ============================================================ */

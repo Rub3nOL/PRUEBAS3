@@ -56,6 +56,14 @@ const pool = mysql.createPool({
 // Convertir pool.query a promesas para poder usar async/await
 const db = pool.promise();
 
+// ── Función: página 404 personalizada ────────────────────
+function serve404(res) {
+  fs.readFile(path.join(__dirname, '404.html'), (err, data) => {
+    res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.end(err ? '404 Not Found' : data);
+  });
+}
+
 // ── Función: servir archivo estático ─────────────────────
 function serveFile(res, filePath) {
   const ext     = path.extname(filePath);
@@ -63,10 +71,7 @@ function serveFile(res, filePath) {
 
   fs.readFile(filePath, (err, data) => {
     if (err) {
-      // Si el archivo no existe → 404
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('Archivo no encontrado: ' + path.basename(filePath));
-      return;
+      return serve404(res);
     }
     res.writeHead(200, { 'Content-Type': mimeType });
     res.end(data);
@@ -159,7 +164,7 @@ async function getMaterial(codigo) {
           [usuario, contrasena]
         );
 
-        res.writeHead(302, { Location: rows.length ? '/almacen.html' : '/?error=1' });
+        res.writeHead(302, { Location: rows.length ? '/armario.html' : '/?error=1' });
         res.end();
       } catch (err) {
         console.error('[Login error]', err.message);
@@ -184,9 +189,7 @@ async function getMaterial(codigo) {
   const ext = path.extname(filePath);
 
   if (!MIME_TYPES[ext]) {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Ruta no encontrada');
-    return;
+    return serve404(res);
   }
 
   serveFile(res, filePath);
