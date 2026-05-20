@@ -5,6 +5,10 @@
 package view;
 
 import dao.AccesoBaseDatos;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -280,7 +284,17 @@ public class ProfesorFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnLocalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocalizarActionPerformed
-        // TODO add your handling code here:
+        
+        lblError.setText("");
+        
+        try {
+            Desktop.getDesktop().browse( new URI("http://10.0.10.39"));
+        } catch (URISyntaxException ex) {
+            lblError.setText("No se ha podido abrir la web");
+        } catch (IOException ex) {
+            lblError.setText("No se ha podido abrir la web");
+        }
+        
     }//GEN-LAST:event_btnLocalizarActionPerformed
 
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed

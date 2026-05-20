@@ -7,9 +7,15 @@ package view;
 import view.AltaMaterialDialog;
 import dao.MaterialDAO;
 import dao.AccesoBaseDatos;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -454,6 +460,13 @@ public class AdminPanelFrame extends javax.swing.JFrame {
     private void btnLocalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocalizarActionPerformed
         lblError.setText("");
         
+        try {
+            Desktop.getDesktop().browse( new URI("http://10.0.10.39"));
+        } catch (URISyntaxException ex) {
+            lblError.setText("No se ha podido abrir la web");
+        } catch (IOException ex) {
+            lblError.setText("No se ha podido abrir la web");
+        }
         
     }//GEN-LAST:event_btnLocalizarActionPerformed
 

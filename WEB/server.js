@@ -131,6 +131,13 @@ async function getMaterial(codigo) {
     return;
   }
 
+  // ── Login: GET /api/login → redirige al inicio ────────
+  if (pathname === '/api/login' && req.method === 'GET') {
+    res.writeHead(302, { Location: '/' });
+    res.end();
+    return;
+  }
+
   // ── Login: POST /api/login ─────────────────────────────
   if (pathname === '/api/login' && req.method === 'POST') {
     let body = '';

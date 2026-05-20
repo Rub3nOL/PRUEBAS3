@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Material;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author Equipo1
@@ -265,7 +266,16 @@ public class AltaMaterialDialog extends javax.swing.JDialog {
         
         try {
             fecha = java.time.LocalDate.parse(
-                    fechaAlta, java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            fechaAlta, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                
+            LocalDate fechaMin = LocalDate.of(2026, 1, 1);
+            LocalDate fechaMax = LocalDate.of(2027, 12, 31);
+
+            if (fecha.isBefore(fechaMin) || fecha.isAfter(fechaMax)) {
+                lblError.setText("La fecha debe estar entre 01/01/2026 y 31/12/2027.");
+                return;
+            }
+            
         } catch (Exception e) {
             lblError.setText("Formato de fecha incorrecto. Usa dd/mm/aaaa.");
             return;
