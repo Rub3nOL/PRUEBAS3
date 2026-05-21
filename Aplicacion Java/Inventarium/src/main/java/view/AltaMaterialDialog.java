@@ -14,8 +14,13 @@ import model.Material;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 /**
+ * Diálogo modal para registrar un nuevo material en el inventario.
+ * Permite introducir nombre, descripción, categoría, subcategoría, estado,
+ * cantidad, ubicación, fecha de alta y observaciones.
+ * Valida los campos antes de persistir el material mediante {@link dao.MaterialDAO}.
  *
  * @author Equipo1
+ * @version 1.0
  */
 public class AltaMaterialDialog extends javax.swing.JDialog {
 
@@ -116,7 +121,12 @@ public class AltaMaterialDialog extends javax.swing.JDialog {
 
         cmbCategoria.setBackground(new java.awt.Color(44, 50, 62));
         cmbCategoria.setForeground(new java.awt.Color(220, 225, 235));
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PC’s para prácticas", "Componentes hardware", "Equipos de red", "Cableado estructurado", "Herramientas de soldadura y generales", "Material fungible" }));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PCs para prácticas", "Componentes hardware", "Equipos de red", "Cableado estructurado", "Herramientas de soldadura y generales", "Material fungible" }));
+        cmbCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCategoriaActionPerformed(evt);
+            }
+        });
         jPanel2.add(cmbCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 178, 215, 32));
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -220,11 +230,23 @@ public class AltaMaterialDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    /**
+ * Manejador del campo cantidad al pulsar Enter. Sin implementación adicional.
+ *
+ * @param evt Evento de acción del campo de texto.
+ */
 
     private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCantidadActionPerformed
-
+    /**
+ * Valida los campos del formulario y, si son correctos, crea un objeto
+ * {@link model.Material} y lo inserta en la base de datos mediante
+ * {@link dao.MaterialDAO#insertarMaterial}.
+ * Muestra mensajes de error en {@code lblError} si la validación falla.
+ *
+ * @param evt Evento de acción del botón Guardar.
+ */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         
         String nombre = txtNombre.getText().trim();
@@ -305,7 +327,11 @@ public class AltaMaterialDialog extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_btnGuardarActionPerformed
-
+    /**
+ * Actualiza el combo de subcategorías con los valores correspondientes
+ * a la categoría actualmente seleccionada en {@code cmbCategoria}.
+ * Consulta la base de datos para obtener las subcategorías asociadas.
+ */
     private void cargarSubcategorias() {
         cmbSubCategorias.removeAllItems();
 
@@ -331,10 +357,18 @@ public class AltaMaterialDialog extends javax.swing.JDialog {
         }
         
     }
-    
+    /**
+ * Cierra el diálogo sin guardar ningún cambio.
+ *
+ * @param evt Evento de acción del botón Cancelar.
+ */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cmbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCategoriaActionPerformed
 
     /**
      * @param args the command line arguments

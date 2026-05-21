@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>INVENTARIUM — Contacto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body class="login-body">
+  <div class="login-wrap">
+    <a href="inicio.html" class="contacto-back">← Volver al inicio</a>
+    <h1 class="login-title">INVENT<span class="a-lambda">&#x039B;</span>RI<span class="login-accent">UM</span></h1>
+    <main class="login-card">
+      <p class="login-sys">CONTACTO</p>
+
+      <div data-fs-success class="login-ok" style="display:none">Mensaje enviado correctamente.</div>
+      <div data-fs-error class="login-err" style="display:none"></div>
+
+      <form id="contacto-form">
+        <div class="login-field">
+          <label for="c-nombre">NOMBRE</label>
+          <input id="c-nombre" type="text" name="nombre" autocomplete="name" spellcheck="false" required data-fs-field/>
+          <span data-fs-error="nombre" class="contacto-field-err"></span>
+        </div>
+        <div class="login-field">
+          <label for="c-correo">CORREO</label>
+          <input id="c-correo" type="email" name="email" autocomplete="email" required data-fs-field/>
+          <span data-fs-error="email" class="contacto-field-err"></span>
+        </div>
+        <div class="login-field">
+          <label for="c-mensaje">MENSAJE</label>
+          <textarea id="c-mensaje" name="message" rows="5" placeholder="Escribe tu mensaje..." required data-fs-field></textarea>
+          <span data-fs-error="message" class="contacto-field-err"></span>
+        </div>
+        <button type="submit" class="login-btn" data-fs-submit-btn>ENVIAR →</button>
+      </form>
+    </main>
+  </div>
+
+  <script>
+    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+    formspree('initForm', { formElement: '#contacto-form', formId: 'mdajgzgb' });
+  </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+</body>
+</html>

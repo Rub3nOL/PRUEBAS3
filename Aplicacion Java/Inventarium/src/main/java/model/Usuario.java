@@ -5,9 +5,13 @@
 package model;
 
 /**
+ * Representa un usuario del sistema con su nombre, contraseña y rol asignado.
+ * Los roles posibles están definidos en el enum {@link Roles}.
  *
  * @author Equipo1
+ * @version 1.0
  */
+
 public class Usuario {
     
     private int id;

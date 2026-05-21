@@ -13,9 +13,14 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
+ * Gestiona la conexión única a la base de datos MySQL mediante el patrón Singleton.
+ * La configuración de conexión (URL, usuario y contraseña) se carga desde el archivo
+ * {configuracion.properties} ubicado en el directorio raíz del proyecto.
  *
  * @author Equipo1
+ * @version 1.0
  */
+
 public class AccesoBaseDatos {
     
     private String bd;
@@ -69,7 +74,14 @@ public class AccesoBaseDatos {
             conn = null;
         }
     }
-
+    
+/**
+ * Devuelve la instancia única de AccesoBaseDatos.
+ * Si aún no existe, la crea cargando la configuración y abriendo la conexión.
+ *
+ * @return Instancia única de AccesoBaseDatos.
+ */
+        
     public static AccesoBaseDatos getInstance() {
         return AccesoBaseDatosHolder.INSTANCE;
     }
@@ -78,6 +90,13 @@ public class AccesoBaseDatos {
         private static final AccesoBaseDatos INSTANCE = new AccesoBaseDatos();
     }
 
+/**
+ * Devuelve la conexión activa a la base de datos.
+ * Si la conexión está cerrada o es nula, intenta reabrirla automáticamente.
+ *
+ * @return Objeto {@Connection} listo para usar, o null si falla.
+ */
+    
     public Connection getConn() {
         try {
             if (conn == null || conn.isClosed()) {
@@ -90,6 +109,13 @@ public class AccesoBaseDatos {
         return conn;
     }
 
+/**
+ * Cierra la conexión activa con la base de datos.
+ *
+ * @return true si se cerró correctamente o ya estaba cerrada;
+ *         false si ocurrió un error al cerrar.
+ */
+    
     public boolean cerrar() {
         if (conn == null) {
             return true;

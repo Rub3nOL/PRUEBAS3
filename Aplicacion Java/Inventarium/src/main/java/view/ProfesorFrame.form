@@ -193,7 +193,7 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="7">
                 <StringItem index="0" value="Todas las categorias"/>
-                <StringItem index="1" value="PC&#x2019;s para pr&#xe1;cticas"/>
+                <StringItem index="1" value="PCs para pr&#xe1;cticas"/>
                 <StringItem index="2" value="Componentes hardware"/>
                 <StringItem index="3" value="Equipos de red"/>
                 <StringItem index="4" value="Cableado estructurado"/>

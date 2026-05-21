@@ -20,14 +20,18 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
+ * Ventana principal del panel de administración. Muestra el inventario completo
+ * y permite al administrador crear, editar, dar de baja materiales, filtrar por
+ * estado/categoría, gestionar usuarios e importar/exportar datos CSV.
  *
  * @author Equipo1
+ * @version 1.0
  */
 public class AdminPanelFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form AdminPanelFrame
-     */    
+     */
     public AdminPanelFrame(String nombreUsuario) {
         initComponents();
         this.setSize(1200, 750);
@@ -35,14 +39,12 @@ public class AdminPanelFrame extends javax.swing.JFrame {
         lblNombreUsuario.setText(nombreUsuario);
         cargarTabla();
     }
-    
+
     public AdminPanelFrame() {
         initComponents();
         this.setSize(1200, 750);
         cargarTabla();
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -199,7 +201,7 @@ public class AdminPanelFrame extends javax.swing.JFrame {
 
         cmbCategoria.setBackground(new java.awt.Color(44, 50, 62));
         cmbCategoria.setForeground(new java.awt.Color(220, 225, 235));
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas las categorias", "PC’s para prácticas", "Componentes hardware", "Equipos de red", "Cableado estructurado", "Herramientas de soldadura y generales", "Material fungible" }));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas las categorias", "PCs para prácticas", "Componentes hardware", "Equipos de red", "Cableado estructurado", "Herramientas de soldadura y generales", "Material fungible" }));
         cmbCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCategoriaActionPerformed(evt);
@@ -302,24 +304,27 @@ public class AdminPanelFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    /**
+     * Carga todos los materiales del inventario desde la base de datos y los
+     * muestra en {@code tablaInventario}.
+     */
+    private void cargarTabla() {
 
-        private void cargarTabla() {
-            
-        String[] columnas = {"ID", "Nombre","Categoría", "Estado", "Cantidad", "Ubicacion"};
+        String[] columnas = {"ID", "Nombre", "Categoría", "Estado", "Cantidad", "Ubicacion"};
 
         DefaultTableModel tabla = new DefaultTableModel(columnas, 0);// 0 filas iniciales
 
-        String sql = "SELECT m.id_material, m.nombre, m.descripcion, c.nombre as categoria, " +
-                         "e.nombre as estado, m.cantidad, u.espacio " +
-                         "FROM material m " +
-                         "JOIN categorias c ON c.id_categoria = m.id_categoria " +
-                         "JOIN estado e ON e.id_estado = m.id_estado "  +
-                         "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion";
+        String sql = "SELECT m.id_material, m.nombre, m.descripcion, c.nombre as categoria, "
+                + "e.nombre as estado, m.cantidad, u.espacio "
+                + "FROM material m "
+                + "JOIN categorias c ON c.id_categoria = m.id_categoria "
+                + "JOIN estado e ON e.id_estado = m.id_estado "
+                + "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion ORDER BY m.id_material";
 
-            try (PreparedStatement ps = AccesoBaseDatos.getInstance().getConn().prepareStatement(sql)){
-            
-            try(ResultSet rs = ps.executeQuery()) {
-                
+        try (PreparedStatement ps = AccesoBaseDatos.getInstance().getConn().prepareStatement(sql)) {
+
+            try (ResultSet rs = ps.executeQuery()) {
+
                 while (rs.next()) {
                     tabla.addRow(new Object[]{
                         rs.getInt("id_material"),
@@ -330,54 +335,64 @@ public class AdminPanelFrame extends javax.swing.JFrame {
                         rs.getString("espacio")
                     });
                 }
-                
+
             }
-                       
+
         } catch (SQLException ex) {
             System.out.println("SQL ERROR -> " + ex.getMessage());
         }
 
         tablaInventario.setModel(tabla);// muestra los datos que metes en 'tabla'
     }
-    
-    
-    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        
-        dispose();
-        
-        new LoginFrame().setVisible(true);
-        
-        
-        
-    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
+    /**
+ * Cierra la sesión del administrador: destruye la ventana actual
+ * y abre el formulario de inicio de sesión.
+ *
+ * @param evt Evento de acción del botón.
+ */
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+
+        dispose();
+
+        new LoginFrame().setVisible(true);
+
+
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+    /**
+ * Filtra la tabla de inventario por el nombre introducido en el campo de búsqueda.
+ * Si el campo está vacío, recarga el inventario completo.
+ *
+ * @param evt Evento de acción del campo de texto.
+ */
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
-        
+
         String buscador = txtBuscar.getText().trim();
-        
-        if(buscador.equalsIgnoreCase("")) {
+
+        if (buscador.equalsIgnoreCase("")) {
             cargarTabla();
             return;
-            
+
         }
-        
+
         String[] columnas = {"ID", "Nombre", "Categoría", "Estado", "Cantidad", "Ubicacion"};
 
         DefaultTableModel tabla = new DefaultTableModel(columnas, 0);
 
-        String sql = "SELECT m.id_material, m.nombre, c.nombre as categoria, " +
-                         "e.nombre as estado, m.cantidad, u.espacio " +
-                         "FROM material m " +
-                         "JOIN categorias c ON c.id_categoria = m.id_categoria " +
-                         "JOIN estado e ON e.id_estado = m.id_estado "  +
-                         "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion WHERE m.nombre=?";
+        String sql = "SELECT m.id_material, m.nombre, c.nombre as categoria, "
+                + "e.nombre as estado, m.cantidad, u.espacio "
+                + "FROM material m "
+                + "JOIN categorias c ON c.id_categoria = m.id_categoria "
+                + "JOIN estado e ON e.id_estado = m.id_estado "
+                + "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion WHERE m.nombre=? ORDER BY m.id_material";
 
-            try (PreparedStatement ps = AccesoBaseDatos.getInstance().getConn().prepareStatement(sql)){
-            
+        try (PreparedStatement ps = AccesoBaseDatos.getInstance().getConn().prepareStatement(sql)) {
+
             ps.setString(1, buscador);
-            
-            try(ResultSet rs = ps.executeQuery()) {
-                
+
+            try (ResultSet rs = ps.executeQuery()) {
+
                 while (rs.next()) {
                     tabla.addRow(new Object[]{
                         rs.getInt("id_material"),
@@ -388,20 +403,25 @@ public class AdminPanelFrame extends javax.swing.JFrame {
                         rs.getString("espacio")
                     });
                 }
-                
+
             }
-                       
+
         } catch (SQLException ex) {
             System.out.println("SQL ERROR -> " + ex.getMessage());
         }
 
         tablaInventario.setModel(tabla);
-        
-    }//GEN-LAST:event_txtBuscarActionPerformed
 
+    }//GEN-LAST:event_txtBuscarActionPerformed
+ /**
+ * Abre el diálogo {@link AltaMaterialDialog} para registrar un nuevo material.
+ * Al cerrarlo recarga la tabla y restablece los filtros.
+ *
+ * @param evt Evento de acción del botón.
+ */
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
         lblError.setText("");
-        
+
         AltaMaterialDialog altaMaterial = new AltaMaterialDialog(this, true);
         altaMaterial.setLocationRelativeTo(this); // para que se abra centrado
         altaMaterial.setVisible(true);
@@ -409,32 +429,42 @@ public class AdminPanelFrame extends javax.swing.JFrame {
         cmbCategoria.setSelectedIndex(0);
         cmbEstado.setSelectedIndex(0);
         txtBuscar.setText("");
-        
-    }//GEN-LAST:event_btnAltaActionPerformed
 
+    }//GEN-LAST:event_btnAltaActionPerformed
+ /**
+ * Abre el diálogo {@link EditarMaterialDialog} para modificar un material existente.
+ * Al cerrarlo recarga la tabla y restablece los filtros.
+ *
+ * @param evt Evento de acción del botón.
+ */
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        
+
         lblError.setText("");
-        
+
         EditarMaterialDialog editarMaterial = new EditarMaterialDialog(this, true);
         editarMaterial.setLocationRelativeTo(this); // para que se abra centrado
         editarMaterial.setVisible(true);
-        
+
         cargarTabla();
         cmbCategoria.setSelectedIndex(0);
         cmbEstado.setSelectedIndex(0);
         txtBuscar.setText("");
-        
-    }//GEN-LAST:event_btnEditarActionPerformed
 
+    }//GEN-LAST:event_btnEditarActionPerformed
+    /**
+ * Elimina de la base de datos y de la tabla visual el material seleccionado.
+ * Si no hay ninguna fila seleccionada muestra un mensaje de error.
+ *
+ * @param evt Evento de acción del botón.
+ */
     private void btnDarDeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeBajaActionPerformed
-        
+
         DefaultTableModel tabla = (DefaultTableModel) tablaInventario.getModel();
-        
+
         int fila = tablaInventario.getSelectedRow();
 
         try {
-            
+
             if (fila >= 0) {
 
                 //guardar el nombre antes de borrar la fila
@@ -442,7 +472,7 @@ public class AdminPanelFrame extends javax.swing.JFrame {
 
                 //eliminar de la tabla
                 tabla.removeRow(fila);
-                
+
                 MaterialDAO.eliminarMaterial(nombre);
 
             } else {
@@ -454,48 +484,58 @@ public class AdminPanelFrame extends javax.swing.JFrame {
         } catch (SQLException e) {
             System.out.println("SQL EXCEPTION -> " + e.getMessage());
         }
-        
-    }//GEN-LAST:event_btnDarDeBajaActionPerformed
 
+    }//GEN-LAST:event_btnDarDeBajaActionPerformed
+    /**
+ * Abre en el navegador predeterminado la aplicación web de localización
+ * de material del taller (IP interna del servidor).
+ *
+ * @param evt Evento de acción del botón.
+ */
     private void btnLocalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocalizarActionPerformed
         lblError.setText("");
-        
+
         try {
-            Desktop.getDesktop().browse( new URI("http://10.0.10.39"));
+            Desktop.getDesktop().browse(new URI("http://10.0.10.39"));
         } catch (URISyntaxException ex) {
             lblError.setText("No se ha podido abrir la web");
         } catch (IOException ex) {
             lblError.setText("No se ha podido abrir la web");
         }
-        
-    }//GEN-LAST:event_btnLocalizarActionPerformed
 
+    }//GEN-LAST:event_btnLocalizarActionPerformed
+    /**
+ * Filtra la tabla de inventario según el estado seleccionado en el combo.
+ * Si se selecciona "Todos los estados" recarga el inventario completo.
+ *
+ * @param evt Evento de acción del combo.
+ */
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
         lblError.setText("");
         String estado = cmbEstado.getSelectedItem().toString();
-        
-        if(estado.equalsIgnoreCase("Todos los estados")){
+
+        if (estado.equalsIgnoreCase("Todos los estados")) {
             cargarTabla();
             return;
         }
-        
+
         String[] columnas = {"ID", "Nombre", "Categoría", "Estado", "Cantidad", "Ubicacion"};
 
         DefaultTableModel tabla = new DefaultTableModel(columnas, 0);// 0 filas iniciales
 
-        String sql = "SELECT m.id_material, m.nombre, c.nombre as categoria, " +
-                         "e.nombre as estado, m.cantidad, u.espacio " +
-                         "FROM material m " +
-                         "JOIN categorias c ON c.id_categoria = m.id_categoria " +
-                         "JOIN estado e ON e.id_estado = m.id_estado "  +
-                         "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion WHERE e.nombre=?";
+        String sql = "SELECT m.id_material, m.nombre, c.nombre as categoria, "
+                + "e.nombre as estado, m.cantidad, u.espacio "
+                + "FROM material m "
+                + "JOIN categorias c ON c.id_categoria = m.id_categoria "
+                + "JOIN estado e ON e.id_estado = m.id_estado "
+                + "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion WHERE e.nombre=? ORDER BY m.id_material";
 
-            try (PreparedStatement ps = AccesoBaseDatos.getInstance().getConn().prepareStatement(sql)){
-            
+        try (PreparedStatement ps = AccesoBaseDatos.getInstance().getConn().prepareStatement(sql)) {
+
             ps.setString(1, estado);
-            
-            try(ResultSet rs = ps.executeQuery()) {
-                
+
+            try (ResultSet rs = ps.executeQuery()) {
+
                 while (rs.next()) {
                     tabla.addRow(new Object[]{
                         rs.getInt("id_material"),
@@ -506,45 +546,50 @@ public class AdminPanelFrame extends javax.swing.JFrame {
                         rs.getString("espacio")
                     });
                 }
-                
+
             }
-                       
+
         } catch (SQLException ex) {
             System.out.println("SQL ERROR -> " + ex.getMessage());
         }
 
         tablaInventario.setModel(tabla);// muestra los datos que metes en 'tabla'
-        
-    }//GEN-LAST:event_cmbEstadoActionPerformed
 
+    }//GEN-LAST:event_cmbEstadoActionPerformed
+    /**
+ * Filtra la tabla de inventario según la categoría seleccionada en el combo.
+ * Si se selecciona "Todas las categorias" recarga el inventario completo.
+ *
+ * @param evt Evento de acción del combo.
+ */
     private void cmbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriaActionPerformed
         lblError.setText("");
-        
+
         String categoria = cmbCategoria.getSelectedItem().toString();
-        
-        if(categoria.equalsIgnoreCase("Todas las categorias")) {
+
+        if (categoria.equalsIgnoreCase("Todas las categorias")) {
             cargarTabla();
             return;
-            
+
         }
-        
+
         String[] columnas = {"ID", "Nombre", "Categoría", "Estado", "Cantidad", "Ubicacion"};
 
         DefaultTableModel tabla = new DefaultTableModel(columnas, 0);
 
-        String sql = "SELECT m.id_material, m.nombre, c.nombre as categoria, " +
-                         "e.nombre as estado, m.cantidad, u.espacio " +
-                         "FROM material m " +
-                         "JOIN categorias c ON c.id_categoria = m.id_categoria " +
-                         "JOIN estado e ON e.id_estado = m.id_estado "  +
-                         "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion WHERE c.nombre=?";
+        String sql = "SELECT m.id_material, m.nombre, c.nombre as categoria, "
+                + "e.nombre as estado, m.cantidad, u.espacio "
+                + "FROM material m "
+                + "JOIN categorias c ON c.id_categoria = m.id_categoria "
+                + "JOIN estado e ON e.id_estado = m.id_estado "
+                + "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion WHERE c.nombre=? ORDER BY m.id_material";
 
-            try (PreparedStatement ps = AccesoBaseDatos.getInstance().getConn().prepareStatement(sql)){
-            
+        try (PreparedStatement ps = AccesoBaseDatos.getInstance().getConn().prepareStatement(sql)) {
+
             ps.setString(1, categoria);
-            
-            try(ResultSet rs = ps.executeQuery()) {
-                
+
+            try (ResultSet rs = ps.executeQuery()) {
+
                 while (rs.next()) {
                     tabla.addRow(new Object[]{
                         rs.getInt("id_material"),
@@ -555,43 +600,56 @@ public class AdminPanelFrame extends javax.swing.JFrame {
                         rs.getString("espacio")
                     });
                 }
-                
+
             }
-                       
+
         } catch (SQLException ex) {
             System.out.println("SQL ERROR -> " + ex.getMessage());
         }
 
         tablaInventario.setModel(tabla);
-        
-        
-    }//GEN-LAST:event_cmbCategoriaActionPerformed
 
+
+    }//GEN-LAST:event_cmbCategoriaActionPerformed
+    /**
+ * Abre el diálogo {@link UsuariosDialog} para gestionar los usuarios del sistema.
+ *
+ * @param evt Evento de acción del botón.
+ */
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         lblError.setText("");
         UsuariosDialog usersDialog = new UsuariosDialog(this, true);
         usersDialog.setLocationRelativeTo(this); // para que se abra centrado
         usersDialog.setVisible(true); // muestra el dialogo
-        
-    }//GEN-LAST:event_btnUsuariosActionPerformed
 
+    }//GEN-LAST:event_btnUsuariosActionPerformed
+    /**
+ * Recarga el inventario completo y restablece todos los filtros activos.
+ *
+ * @param evt Evento de acción del botón.
+ */
     private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        
+
         cargarTabla();
-        
+
         cmbCategoria.setSelectedIndex(0);
         cmbEstado.setSelectedIndex(0);
         txtBuscar.setText("");
-        
-    }//GEN-LAST:event_btnInventarioActionPerformed
 
+    }//GEN-LAST:event_btnInventarioActionPerformed
+    /**
+ * Abre el diálogo {@link ImportarExportarDialog} para importar o exportar
+ * el inventario en formato CSV.
+ *
+ * @param evt Evento de acción del botón.
+ */
     private void btnImporExporActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImporExporActionPerformed
-        
+
         lblError.setText("");
         ImportarExportarDialog importarExportarD = new ImportarExportarDialog(this, true);
         importarExportarD.setLocationRelativeTo(this); // para que se abra centrado
         importarExportarD.setVisible(true); // muestra el dialogo
-                
+
     }//GEN-LAST:event_btnImporExporActionPerformed
 
     /**
@@ -621,7 +679,6 @@ public class AdminPanelFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -630,8 +687,7 @@ public class AdminPanelFrame extends javax.swing.JFrame {
 
             }
         });
-        
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

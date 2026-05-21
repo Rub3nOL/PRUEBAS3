@@ -7,9 +7,14 @@ package model;
 import java.time.LocalDate;
 
 /**
+ * Representa un elemento del inventario del taller de informática.
+ * Contiene toda la información asociada a un material: identificación,
+ * descripción, categoría, estado, cantidad, ubicación y fecha de alta.
  *
  * @author Equipo1
+ * @version 1.0
  */
+
 public class Material {
     
     

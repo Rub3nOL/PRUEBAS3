@@ -9,8 +9,13 @@ import javax.swing.JOptionPane;
 import util.GestorCSV;
 
 /**
+ * Diálogo modal para gestionar la importación y exportación del inventario
+ * en formato CSV mediante {@link util.GestorCSV}.
+ * Permite exportar todos los materiales a un archivo CSV y cargar
+ * nuevos materiales desde un archivo con el formato establecido.
  *
  * @author Equipo1
+ * @version 1.0
  */
 public class ImportarExportarDialog extends javax.swing.JDialog {
 
@@ -166,31 +171,53 @@ public class ImportarExportarDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+ * Exporta el inventario completo al archivo {@code material.csv}
+ * utilizando {@link util.GestorCSV#exportar}.
+ * Muestra un mensaje de error en {@code lblError} si la operación falla.
+ *
+ * @param evt Evento de acción del botón Exportar.
+ */
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         try {
                         
             GestorCSV.exportar("material.csv");
-            
+            JOptionPane.showMessageDialog(this, "Exportado correctamente");
 
+            dispose();
+            
         } catch (Exception e) {
             lblError.setText("Ocurrio un error al exportar el fichero");
         }
+        
     }//GEN-LAST:event_btnExportarActionPerformed
-
+    /**
+ * Importa materiales desde el archivo {@code material.csv}
+ * utilizando {@link util.GestorCSV#importar} y muestra un mensaje
+ * con el número de registros importados.
+ * Muestra un mensaje de error en {@code lblError} si la operación falla.
+ *
+ * @param evt Evento de acción del botón Importar.
+ */
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
         
         try {
             int n = GestorCSV.importar("material.csv");
             
             JOptionPane.showMessageDialog(this, "Importados: " + n);
+            
+            dispose();
 
         } catch (Exception e) {
             lblError.setText("Ocurrio un error al importar los datos");
         }
         
     }//GEN-LAST:event_btnImportarActionPerformed
-
+    /**
+ * Cierra el diálogo.
+ *
+ * @param evt Evento de acción del botón Cerrar.
+ */
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed

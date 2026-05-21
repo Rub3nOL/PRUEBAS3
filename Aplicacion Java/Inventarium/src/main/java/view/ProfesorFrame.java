@@ -17,8 +17,13 @@ import javax.swing.table.DefaultTableModel;
 import util.GestorCSV;
 
 /**
+ * Ventana principal para usuarios con rol PROFESOR.
+ * Muestra el inventario en modo solo lectura y permite filtrar
+ * por nombre, estado y categoría, localizar material en la web
+ * y exportar un listado CSV mediante {@link util.GestorCSV}.
  *
  * @author Equipo1
+ * @version 1.0
  */
 public class ProfesorFrame extends javax.swing.JFrame {
 
@@ -122,7 +127,7 @@ public class ProfesorFrame extends javax.swing.JFrame {
 
         cmbCategoria.setBackground(new java.awt.Color(44, 50, 62));
         cmbCategoria.setForeground(new java.awt.Color(220, 225, 235));
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas las categorias", "PC’s para prácticas", "Componentes hardware", "Equipos de red", "Cableado estructurado", "Herramientas de soldadura y generales", "Material fungible" }));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas las categorias", "PCs para prácticas", "Componentes hardware", "Equipos de red", "Cableado estructurado", "Herramientas de soldadura y generales", "Material fungible" }));
         cmbCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCategoriaActionPerformed(evt);
@@ -193,7 +198,10 @@ public class ProfesorFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+        /**
+ * Carga todos los materiales del inventario desde la base de datos
+ * y los muestra en {@code tablaInventario}.
+ */
         private void cargarTabla() {
             
         String[] columnas = {"ID", "Nombre", "Categoría", "Estado", "Cantidad", "Ubicacion"};
@@ -205,7 +213,7 @@ public class ProfesorFrame extends javax.swing.JFrame {
                          "FROM material m " +
                          "JOIN categorias c ON c.id_categoria = m.id_categoria " +
                          "JOIN estado e ON e.id_estado = m.id_estado "  +
-                         "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion";
+                         "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion ORDER BY m.id_material";
 
             try (PreparedStatement ps = AccesoBaseDatos.getInstance().getConn().prepareStatement(sql);
                  ResultSet rs = ps.executeQuery()) {
@@ -228,13 +236,23 @@ public class ProfesorFrame extends javax.swing.JFrame {
         tablaInventario.setModel(tabla);// muestra los datos que metes en 'tabla'
     }
     
-    
+    /**
+ * Cierra la sesión del profesor: destruye la ventana actual
+ * y abre el formulario de inicio de sesión.
+ *
+ * @param evt Evento de acción del botón.
+ */
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         dispose();
         
         new LoginFrame().setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
-
+    /**
+ * Filtra la tabla de inventario por el nombre introducido en el campo de búsqueda.
+ * Si el campo está vacío, recarga el inventario completo.
+ *
+ * @param evt Evento de acción del campo de texto.
+ */
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         
         String buscador = txtBuscar.getText().trim();
@@ -254,7 +272,7 @@ public class ProfesorFrame extends javax.swing.JFrame {
                          "FROM material m " +
                          "JOIN categorias c ON c.id_categoria = m.id_categoria " +
                          "JOIN estado e ON e.id_estado = m.id_estado "  +
-                         "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion WHERE m.nombre=?";
+                         "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion WHERE m.nombre=? ORDER BY m.id_material";
 
             try (PreparedStatement ps = AccesoBaseDatos.getInstance().getConn().prepareStatement(sql)){
             
@@ -282,7 +300,12 @@ public class ProfesorFrame extends javax.swing.JFrame {
         tablaInventario.setModel(tabla);
         
     }//GEN-LAST:event_txtBuscarActionPerformed
-
+    /**
+ * Abre en el navegador predeterminado la aplicación web de localización
+ * de material del taller (IP interna del servidor).
+ *
+ * @param evt Evento de acción del botón.
+ */
     private void btnLocalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocalizarActionPerformed
         
         lblError.setText("");
@@ -296,7 +319,12 @@ public class ProfesorFrame extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnLocalizarActionPerformed
-
+    /**
+ * Filtra la tabla de inventario según el estado seleccionado en el combo.
+ * Si se selecciona "Todos los estados" recarga el inventario completo.
+ *
+ * @param evt Evento de acción del combo.
+ */
     private void cmbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEstadoActionPerformed
         lblError.setText("");
         String estado = cmbEstado.getSelectedItem().toString();
@@ -315,7 +343,7 @@ public class ProfesorFrame extends javax.swing.JFrame {
                          "FROM material m " +
                          "JOIN categorias c ON c.id_categoria = m.id_categoria " +
                          "JOIN estado e ON e.id_estado = m.id_estado "  +
-                         "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion WHERE e.nombre=?";
+                         "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion WHERE e.nombre=? ORDER BY m.id_material";
 
             try (PreparedStatement ps = AccesoBaseDatos.getInstance().getConn().prepareStatement(sql)){
             
@@ -343,7 +371,12 @@ public class ProfesorFrame extends javax.swing.JFrame {
         tablaInventario.setModel(tabla);// muestra los datos que metes en 'tabla'
         
     }//GEN-LAST:event_cmbEstadoActionPerformed
-
+    /**
+ * Filtra la tabla de inventario según la categoría seleccionada en el combo.
+ * Si se selecciona "Todas las categorias" recarga el inventario completo.
+ *
+ * @param evt Evento de acción del combo.
+ */
     private void cmbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriaActionPerformed
         
         lblError.setText("");
@@ -365,7 +398,7 @@ public class ProfesorFrame extends javax.swing.JFrame {
                          "FROM material m " +
                          "JOIN categorias c ON c.id_categoria = m.id_categoria " +
                          "JOIN estado e ON e.id_estado = m.id_estado "  +
-                         "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion WHERE c.nombre=?";
+                         "JOIN ubicaciones u ON u.codigo_armario = m.id_ubicacion WHERE c.nombre=? ORDER BY m.id_material";
 
             try (PreparedStatement ps = AccesoBaseDatos.getInstance().getConn().prepareStatement(sql)){
             
@@ -393,7 +426,13 @@ public class ProfesorFrame extends javax.swing.JFrame {
         tablaInventario.setModel(tabla);
         
     }//GEN-LAST:event_cmbCategoriaActionPerformed
-
+    /**
+ * Exporta el inventario actual al archivo {@code material_profe.csv}
+ * mediante {@link util.GestorCSV#exportar} y muestra una confirmación
+ * mediante un diálogo de información.
+ *
+ * @param evt Evento de acción del botón.
+ */
     private void btnListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListadoActionPerformed
         
         try {

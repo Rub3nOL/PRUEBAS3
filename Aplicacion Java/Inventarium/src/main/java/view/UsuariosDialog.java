@@ -11,8 +11,13 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * Diálogo modal para la gestión de usuarios del sistema.
+ * Permite al administrador ver la lista de usuarios registrados,
+ * añadir nuevos profesores mediante {@link AnadirProfeDialog}
+ * y eliminar usuarios existentes.
  *
  * @author Equipo1
+ * @version 1.0
  */
 public class UsuariosDialog extends javax.swing.JDialog {
 
@@ -179,7 +184,11 @@ public class UsuariosDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+ * Abre el diálogo {@link AnadirProfeDialog} para registrar un nuevo profesor.
+ *
+ * @param evt Evento de acción del botón.
+ */
     private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
         
         lblError.setText("");
@@ -188,14 +197,24 @@ public class UsuariosDialog extends javax.swing.JDialog {
         anadirDialog.setVisible(true);
         
     }//GEN-LAST:event_btnAnadirActionPerformed
-
+    /**
+ * Recarga la tabla de usuarios desde la base de datos
+ * y muestra un mensaje de confirmación en {@code lblActualizado}.
+ *
+ * @param evt Evento de acción del botón.
+ */
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         lblError.setText("");
 
         cargarTabla();
         lblActualizado.setText("Se ha actualizado");
     }//GEN-LAST:event_btnActualizarActionPerformed
-
+    /**
+ * Elimina de la base de datos y de la tabla visual el usuario seleccionado.
+ * Si no hay ninguna fila seleccionada muestra un mensaje de error en {@code lblError}.
+ *
+ * @param evt Evento de acción del botón.
+ */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
                 
         DefaultTableModel tabla = (DefaultTableModel) tablaUsuarios.getModel();
@@ -225,11 +244,18 @@ public class UsuariosDialog extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_btnEliminarActionPerformed
-
+    /**
+ * Cierra el diálogo.
+ *
+ * @param evt Evento de acción del botón Cerrar.
+ */
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
-    
+    /**
+ * Recupera todos los usuarios registrados mediante {@link dao.UsuarioDAO#verUsuarios}
+ * y los muestra en {@code tablaUsuarios}.
+ */
     private void cargarTabla() {
     
         String[] columnas = {"Nombre", "Rol"};

@@ -16,9 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Clase de acceso a datos (DAO) para la entidad Usuario.
+ * Proporciona métodos estáticos para gestionar los usuarios del sistema:
+ * autenticación, alta, baja y consulta, usando el patrón DAO sobre
+ * la tabla usuarios de la base de datos.
  *
  * @author Equipo1
+ * @version 1.0
  */
+
 public class UsuarioDAO {
     
     private static Connection getConexion(){
@@ -36,6 +42,12 @@ public class UsuarioDAO {
 
     } 
     
+/**
+ * Inserta un nuevo usuario con rol PROFESOR en la base de datos.
+ * La contraseña se almacena hasheada con MD5.
+ *
+ * @param u Objeto Usuario con los datos del profesor a añadir.
+ */
     
     public static void anadirProfe(Usuario u){
         
@@ -68,6 +80,14 @@ public class UsuarioDAO {
   
     }
     
+/**
+ * Comprueba si ya existe un usuario con el nombre indicado.
+ *
+ * @param nombre Nombre de usuario a comprobar.
+ * @return true si el usuario ya existe; false en caso contrario.
+ * @throws SQLException Si ocurre un error en la consulta SQL.
+ */
+    
     public static boolean existeUsuario(String nombre) throws SQLException {
         
         String sql = "SELECT nombre FROM usuarios WHERE nombre = ?";
@@ -82,6 +102,14 @@ public class UsuarioDAO {
         }
     }
     
+/**
+ * Elimina un usuario de la base de datos por su nombre.
+ *
+ * @param nombre Nombre del usuario a eliminar.
+ * @return true si se eliminó correctamente; false en caso contrario.
+ * @throws SQLException Si ocurre un error en la consulta SQL.
+ */
+    
     public static boolean eliminarProfe(String nombre) throws SQLException {
         
         String sql = ("DELETE FROM usuarios WHERE nombre =?");
@@ -95,6 +123,12 @@ public class UsuarioDAO {
         }
 
     }
+    
+/**
+ * Obtiene la lista de todos los usuarios registrados en el sistema.
+ *
+ * @return Lista de objetos Usuario con todos los usuarios.
+ */
     
     public static List<Usuario> verUsuarios(){
         
@@ -121,46 +155,37 @@ public class UsuarioDAO {
         return lista;
 
     }
+    
+/**
+ * Autentica a un usuario comprobando su nombre y contraseña (hasheada con MD5).
+ *
+ * @param nombre    Nombre de usuario introducido en el login.
+ * @param contrasena Contraseña en texto plano introducida (se hashea internamente).
+ * @return Objeto Usuario si las credenciales son correctas;  null si no coinciden.
+ */
 
     public static Usuario login(String nombre, String contrasena) {
-            
+
         String sql = "SELECT nombre, contrasena, rol FROM usuarios WHERE nombre = ?";
-        
+
         try (PreparedStatement ps = getConexion().prepareStatement(sql)) {
-            
             ps.setString(1, nombre);
-            
             try (ResultSet rs = ps.executeQuery()) {
-                
                 if (rs.next()) {
                     
-                    String hash = rs.getString("contrasena");
-                    // compara el texto plano con el hash de la BD
-                    if (BCrypt.checkpw(contrasena, hash)) {
+                    String hashBD = rs.getString("contrasena");
+                    boolean coincide = BCrypt.checkpw(contrasena, hashBD);
+
+                    if (coincide) {
                         return crearUsuario(rs);
                     }
-                    
                 }
             }
         } catch (SQLException e) {
             System.out.println("SQL ERROR -> " + e.getMessage());
         }
-        
         return null;
-        
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ 
 }

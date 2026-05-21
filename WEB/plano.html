@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano Cenital — INVENTARIUM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@200;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="plano-body">
+
+<div class="room">
+
+    <!-- Estación 1 -->
+    <div class="mesa-fondo-h" data-name="Estación 1" data-desc="Estación 1: mesa norte con 10 puestos.">
+        <div class="pc" style="top:25px; left:28.2px;"></div>
+        <div class="pc" style="top:25px; left:74.4px;"></div>
+        <div class="pc" style="top:25px; left:120.5px;"></div>
+        <div class="pc" style="top:25px; left:166.7px;"></div>
+        <div class="pc" style="top:25px; left:212.9px;"></div>
+        <div class="pc" style="top:25px; left:259.1px;"></div>
+        <div class="pc" style="top:25px; left:305.3px;"></div>
+        <div class="pc" style="top:25px; left:351.5px;"></div>
+        <div class="pc" style="top:25px; left:397.6px;"></div>
+        <div class="pc" style="top:25px; left:443.8px;"></div>
+    </div>
+
+    <!-- Estación 2 -->
+    <div class="mesa-fondo-v" data-name="Estación 2" data-desc="Estación 2: mesa este con 4 equipos.">
+        <div class="pc" style="top:28.8px; left:22px;"></div>
+        <div class="pc" style="top:71.6px; left:22px;"></div>
+        <div class="pc" style="top:114.4px; left:22px;"></div>
+        <div class="pc" style="top:157.2px; left:22px;"></div>
+    </div>
+
+    <!-- Estación 3 -->
+    <div class="mesa-izq-unificada" data-name="Estación 3" data-desc="Estación 3: mesa oeste con 13 puestos.">
+        <div class="pc" style="top:30px; left:22px;"></div>
+        <div class="pc" style="top:80px; left:22px;"></div>
+        <div class="pc" style="top:130px; left:22px;"></div>
+        <div class="pc" style="top:180px; left:22px;"></div>
+        <div class="pc" style="top:230px; left:22px;"></div>
+        <div class="pc" style="top:280px; left:22px;"></div>
+        <div class="pc" style="top:330px; left:22px;"></div>
+        <div class="pc" style="top:380px; left:22px;"></div>
+        <div class="pc" style="top:430px; left:22px;"></div>
+        <div class="pc" style="top:480px; left:22px;"></div>
+        <div class="pc" style="top:530px; left:22px;"></div>
+        <div class="pc" style="top:580px; left:22px;"></div>
+        <div class="pc" style="top:630px; left:22px;"></div>
+    </div>
+
+    <!-- Puertas -->
+    <div class="puerta-inf-izq"></div>
+    <div class="puerta-arco-inf-izq"></div>
+
+    <!-- Estación 4 -->
+    <div class="mesa-inferior-dcha" data-name="Estación 4" data-desc="Estación 4: mesa sur con 5 puestos.">
+        <div class="pc" style="top:13px; left:54.2px;"></div>
+        <div class="pc" style="top:13px; left:126.3px;"></div>
+        <div class="pc" style="top:13px; left:198.5px;"></div>
+        <div class="pc" style="top:13px; left:270.7px;"></div>
+        <div class="pc" style="top:13px; left:342.8px;"></div>
+    </div>
+
+    <!-- Puerta derecha -->
+    <div class="puerta-dcha"></div>
+    <div class="puerta-arco-dcha"></div>
+
+    <!-- Armario -->
+    <div class="armario" data-name="Armario" data-link="armario.html"></div>
+
+    <!-- Mesa central -->
+    <div class="mesa-central" data-name="Mesa central" data-desc="Mesa central redonda de reuniones."></div>
+
+    <!-- Sillas -->
+    <div class="silla s1"></div>
+    <div class="silla s2"></div>
+    <div class="silla s3"></div>
+    <div class="silla s4"></div>
+
+</div>
+
+<!-- Tooltip -->
+<div id="hoverTooltip" style="display:none;"></div>
+
+<!-- Tarjeta -->
+<div id="descCard" style="display:none;">
+    <h4 id="descTitle"></h4>
+    <p id="descText"></p>
+    <button id="closeDescCard">Cerrar</button>
+</div>
+
+<!-- Volver -->
+<a href="inicio.html" class="plano-back">← Inicio</a>
+
+<script>
+
+const selectors = [
+    '.mesa-fondo-h',
+    '.mesa-fondo-v',
+    '.mesa-izq-unificada',
+    '.mesa-inferior-dcha',
+    '.mesa-central',
+    '.armario'
+];
+
+const interactiveElements = document.querySelectorAll(selectors.join(','));
+
+const hoverTooltip  = document.getElementById('hoverTooltip');
+const descCard      = document.getElementById('descCard');
+const descTitle     = document.getElementById('descTitle');
+const descText      = document.getElementById('descText');
+const closeDescBtn  = document.getElementById('closeDescCard');
+
+closeDescBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    descCard.style.display = 'none';
+});
+
+function positionDescCard(element, title, description) {
+    const rect = element.getBoundingClientRect();
+    let left = rect.right + 12;
+    let top  = rect.top + (rect.height / 2) - 40;
+
+    const cardWidth  = 260;
+    const cardHeight = 150;
+
+    if (left + cardWidth > window.innerWidth)  left = rect.left - cardWidth - 12;
+    if (top + cardHeight > window.innerHeight) top  = window.innerHeight - cardHeight - 10;
+    if (top < 10) top = 10;
+
+    descCard.style.left = left + 'px';
+    descCard.style.top  = top  + 'px';
+
+    descTitle.textContent = title;
+    descText.textContent  = description;
+    descCard.style.display = 'block';
+}
+
+function showHoverTooltip(element, text) {
+    const rect = element.getBoundingClientRect();
+    let left = rect.right + 10;
+    let top  = rect.top + (rect.height / 2) - 15;
+
+    if (left + 150 > window.innerWidth) left = rect.left - 110;
+    if (top < 0) top = 5;
+    if (top + 40 > window.innerHeight) top = window.innerHeight - 45;
+
+    hoverTooltip.style.left    = left + 'px';
+    hoverTooltip.style.top     = top  + 'px';
+    hoverTooltip.textContent   = text;
+    hoverTooltip.style.display = 'block';
+}
+
+function hideHoverTooltip() {
+    hoverTooltip.style.display = 'none';
+}
+
+interactiveElements.forEach(el => {
+
+    el.addEventListener('mouseenter', () => {
+        el.classList.add('highlight');
+        showHoverTooltip(el, el.getAttribute('data-name') || 'Elemento');
+    });
+
+    el.addEventListener('mouseleave', () => {
+        el.classList.remove('highlight');
+        hideHoverTooltip();
+    });
+
+    el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (el.classList.contains('armario')) {
+            window.location.href = 'armario.html';
+        } else {
+            const name = el.getAttribute('data-name') || 'Elemento';
+            const desc = el.getAttribute('data-desc') || 'Sin descripción.';
+            positionDescCard(el, name, desc);
+        }
+    });
+});
+
+document.addEventListener('click', function(e) {
+    if (!descCard.contains(e.target) &&
+        !Array.from(interactiveElements).some(el => el.contains(e.target)) &&
+        descCard.style.display === 'block') {
+        descCard.style.display = 'none';
+    }
+});
+
+</script>
+
+</body>
+</html>

@@ -9,8 +9,9 @@ import com.jcraft.jsch.Session;
 
 /**
  *
- * @author DAW109
+ * @author Equipo1
  */
+
 public class TunelSSH {
     
     private static final String SSH_USER     = "equipo1_mv2";
@@ -19,7 +20,7 @@ public class TunelSSH {
     private static final String SSH_PASSWORD = "equipo1";
 
     private static final String DB_HOST      = "192.168.56.10";
-    private static final int    DB_PORT      = 3306;  // 5432 PostgreSQL / 3306 MySQL
+    private static final int    DB_PORT      = 3306;  // 3306 MySQL
     private static final int    LOCAL_PORT   = 5433;  // Puerto local para JDBC
     // --------------------------------
 
@@ -27,7 +28,6 @@ public class TunelSSH {
 
     public void abrirTunel() throws Exception {
         JSch jsch = new JSch();
-        // Opcional: jsch.addIdentity("/ruta/clave_privada");
 
         sshSession = jsch.getSession(SSH_USER, SSH_HOST, SSH_PORT);
         sshSession.setPassword(SSH_PASSWORD);

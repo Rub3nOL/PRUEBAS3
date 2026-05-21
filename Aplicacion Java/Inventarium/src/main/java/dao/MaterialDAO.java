@@ -17,9 +17,14 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * Clase de acceso a datos (DAO) para la entidad Material.
+ * Implementa el patrón DAO proporcionando métodos estáticos para realizar
+ * operaciones CRUD sobre la tabla material de la base de datos.
  *
  * @author Equipo1
+ * @version 1.0
  */
+
 public class MaterialDAO {
     
     
@@ -38,6 +43,16 @@ public class MaterialDAO {
                 rs.getInt("cantidad"), rs.getInt("id_ubicacion"), fecha, rs.getString("observaciones"));
 
     }
+    
+/**
+ * Actualiza la cantidad, el estado y las observaciones de un material existente.
+ *
+ * @param cantidad   Nueva cantidad del material.
+ * @param idEstado   Nuevo identificador de estado del material.
+ * @param obser      Nuevas observaciones del material.
+ * @param nombre     Nombre del material a actualizar (clave de búsqueda).
+ * @return true si se actualizó al menos una fila; false en caso contrario.
+ */
     
     public static boolean actualizarMaterial(int cantidad, int idEstado, String obser, String nombre){
         
@@ -60,6 +75,12 @@ public class MaterialDAO {
         
         return false;
     }
+
+/**
+ * Inserta un nuevo material en la base de datos.
+ *
+ * @param m Objeto Material con los datos a insertar.
+ */
     
     public static void insertarMaterial (Material m) {
         
@@ -100,6 +121,12 @@ public class MaterialDAO {
 
     }
     
+/**
+ * Obtiene la lista completa de materiales del inventario.
+ *
+ * @return Lista de objetos Material con todos los elementos del inventario.
+ */
+    
     public static List<Material> verInventario(){
 
         String sql = "SELECT m.id_material, m.nombre, c.nombre as categoria, e.nombre as estado, cantidad, id_ubicacion FROM material m "
@@ -128,6 +155,14 @@ public class MaterialDAO {
         
     }
     
+/**
+ * Elimina un material de la base de datos por su nombre.
+ *
+ * @param nombre Nombre del material a eliminar.
+ * @return true si se eliminó correctamente; false en caso contrario.
+ * @throws SQLException Si ocurre un error en la consulta SQL.
+ */
+    
     public static boolean eliminarMaterial(String nombre) throws SQLException {
 
     String sql = ("DELETE FROM material WHERE nombre =?");
@@ -142,6 +177,12 @@ public class MaterialDAO {
 
     }
     
+/**
+ * Filtra los materiales del inventario por nombre.
+ *
+ * @param nombre Nombre del material a buscar.
+ * @return Lista de materiales cuyo nombre coincide con el indicado.
+ */
     
     public static List<Material> filtrarPorNombre(String nombre){
 
@@ -172,6 +213,13 @@ public class MaterialDAO {
          
     }
     
+/**
+ * Filtra los materiales del inventario por categoría.
+ *
+ * @param categoria Nombre de la categoría por la que filtrar.
+ * @return Lista de materiales pertenecientes a la categoría indicada.
+ */
+    
     public static List<Material> filtrarPorCategoria(String categoria){
 
         String sql = "SELECT m.id_material, m.nombre, c.nombre as categoria, e.nombre as estado, cantidad, id_ubicacion FROM material m JOIN categorias c ON c.id_categoria = m.id_categoria " +
@@ -200,6 +248,13 @@ public class MaterialDAO {
         return lista;
          
     }
+    
+/**
+ * Filtra los materiales del inventario por estado.
+ *
+ * @param estado Nombre del estado por el que filtrar.
+ * @return Lista de materiales con el estado indicado.
+ */
     
     public static List<Material> filtrarPorEstado(String estado){
 
@@ -243,6 +298,14 @@ public class MaterialDAO {
          
     }
     
+/**
+ * Obtiene el identificador de una categoría a partir de su nombre.
+ *
+ * @param nombre Nombre de la categoría.
+ * @return Identificador de la categoría, o -1 si no se encuentra.
+ * @throws SQLException Si ocurre un error en la consulta SQL.
+ */
+    
     public static int getIdCategoria(String nombre) throws SQLException {
         
         String sql = "SELECT id_categoria FROM categorias WHERE nombre = ?";
@@ -265,6 +328,14 @@ public class MaterialDAO {
         
         return -1;
     }
+    
+/**
+ * Obtiene el identificador de una subcategoría a partir de su nombre.
+ *
+ * @param nombre Nombre de la subcategoría.
+ * @return Identificador de la subcategoría, o -1 si no se encuentra.
+ * @throws SQLException Si ocurre un error en la consulta SQL.
+ */
 
     public static int getIdSubcategoria(String nombre) throws SQLException {
         
@@ -286,6 +357,14 @@ public class MaterialDAO {
         }
         return -1;
     }
+    
+/**
+ * Obtiene el identificador de un estado a partir de su nombre.
+ *
+ * @param nombre Nombre del estado.
+ * @return Identificador del estado, o -1 si no se encuentra.
+ * @throws SQLException Si ocurre un error en la consulta SQL.
+ */
 
     public static int getIdEstado(String nombre) throws SQLException {
         
@@ -307,6 +386,14 @@ public class MaterialDAO {
         }
         return -1;
     }
+    
+/**
+ * Obtiene el identificador de una ubicación a partir del nombre del espacio.
+ *
+ * @param espacio Nombre del espacio.
+ * @return Identificador de la ubicación, o -1 si no se encuentra.
+ * @throws SQLException Si ocurre un error en la consulta SQL.
+ */
 
     public static int getIdUbicacion(String espacio) throws SQLException {
         
@@ -329,5 +416,4 @@ public class MaterialDAO {
         return -1;
     }    
       
-    
 }

@@ -10,8 +10,12 @@ import model.Roles;
 import model.Usuario;
 
 /**
+ * Diálogo modal para añadir un nuevo usuario con rol PROFESOR al sistema.
+ * Valida el nombre de usuario y la fortaleza de la contraseña antes de
+ * persistir el registro mediante {@link dao.UsuarioDAO#anadirProfe}.
  *
  * @author Equipo1
+ * @version 1.0
  */
 public class AnadirProfeDialog extends javax.swing.JDialog {
 
@@ -132,16 +136,31 @@ public class AnadirProfeDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+ * Manejador del campo nombre al pulsar Enter. Sin implementación adicional.
+ *
+ * @param evt Evento de acción del campo de texto.
+ */
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
-
+    /**
+ * Cierra el diálogo sin guardar ningún cambio.
+ *
+ * @param evt Evento de acción del botón Cancelar.
+ */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         
         dispose();
         
     }//GEN-LAST:event_btnCancelarActionPerformed
+    /**
+ * Valida los campos nombre y contraseña, comprueba que el usuario no exista
+ * ya en la base de datos y, si todo es correcto, lo inserta con rol PROFESOR.
+ * Muestra mensajes de error en {@code lblError} ante cualquier fallo.
+ *
+ * @param evt Evento de acción del botón Guardar.
+ */
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         
@@ -189,7 +208,11 @@ public class AnadirProfeDialog extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_btnGuardarActionPerformed
-
+/**
+ * Manejador del campo contraseña al pulsar Enter. Sin implementación adicional.
+ *
+ * @param evt Evento de acción del campo de contraseña.
+ */
     private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContraseñaActionPerformed

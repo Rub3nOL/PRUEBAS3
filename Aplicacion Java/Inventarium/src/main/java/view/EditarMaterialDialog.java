@@ -8,8 +8,12 @@ import util.Validador;
 import dao.MaterialDAO;
 
 /**
+ * Diálogo modal para editar los datos de un material ya existente en el inventario.
+ * Permite modificar la cantidad, el estado y las observaciones del material indicado,
+ * delegando la actualización en {@link dao.MaterialDAO#actualizarMaterial}.
  *
  * @author Equipo1
+ * @version 1.0
  */
 public class EditarMaterialDialog extends javax.swing.JDialog {
 
@@ -138,7 +142,14 @@ public class EditarMaterialDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+ * Valida los campos del formulario y, si son correctos, actualiza el material
+ * en la base de datos mediante {@link dao.MaterialDAO#actualizarMaterial}.
+ * Muestra un mensaje de error en {@code lblError} si la validación falla
+ * o si no se puede completar la actualización.
+ *
+ * @param evt Evento de acción del botón Guardar.
+ */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         
         String nombre = txtNombre.getText().trim();
@@ -193,7 +204,11 @@ public class EditarMaterialDialog extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_btnGuardarActionPerformed
-
+    /**
+ * Cierra el diálogo sin guardar ningún cambio.
+ *
+ * @param evt Evento de acción del botón Cancelar.
+ */
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed

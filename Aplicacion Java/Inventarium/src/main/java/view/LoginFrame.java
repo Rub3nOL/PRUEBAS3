@@ -9,10 +9,18 @@ import view.AdminPanelFrame;
 import dao.UsuarioDAO;
 import model.Roles;
 import model.Usuario;
+import org.mindrot.jbcrypt.BCrypt;
 import ssh.TunelSSH;
 /**
+ * Ventana de inicio de sesión de la aplicación.
+ * Permite autenticarse con nombre de usuario y contraseña.
+ * Tras una autenticación correcta redirige al panel de administrador
+ * ({@link AdminPanelFrame}) o al panel de profesor ({@link ProfesorFrame})
+ * según el rol del usuario.
+ * Al arrancar abre el túnel SSH necesario para la conexión remota a la BD.
  *
  * @author Equipo1
+ * @version 1.0
  */
 public class LoginFrame extends javax.swing.JFrame {
 
@@ -186,11 +194,22 @@ public class LoginFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+ * Manejador del campo nombre al pulsar Enter. Sin implementación adicional.
+ *
+ * @param evt Evento de acción del campo de texto.
+ */
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
-    
+    /**
+ * Valida que los campos no estén vacíos, autentica al usuario mediante
+ * {@link dao.UsuarioDAO#login} y, si las credenciales son correctas,
+ * abre el panel correspondiente al rol (ADMINISTRADOR o PROFESOR).
+ * Muestra un mensaje de error en {@code lblError} si la autenticación falla.
+ *
+ * @param evt Evento de acción del botón Entrar.
+ */
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         
         String nombre = txtNombre.getText();
@@ -222,7 +241,12 @@ public class LoginFrame extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnEntrarActionPerformed
-
+    /**
+ * Simula la pulsación del botón Entrar al pulsar Enter en el campo de contraseña,
+ * permitiendo iniciar sesión sin usar el ratón.
+ *
+ * @param evt Evento de acción del campo de contraseña.
+ */
     private void txtContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContrasenaActionPerformed
         btnEntrar.doClick();
     }//GEN-LAST:event_txtContrasenaActionPerformed
