@@ -1,2 +1,5 @@
 /Aplicacion Java/Inventarium/target/
 /Aplicacion Java/Inventarium/configuracion.properties
+
+WEB/node_modules/
+WEB/.env

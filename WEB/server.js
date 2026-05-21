@@ -10,21 +10,23 @@
 
 'use strict';
 
-const http  = require('http');
-const fs    = require('fs');
-const path  = require('path');
-const url   = require('url');
-const mysql = require('mysql2');   // npm install mysql2
+const http   = require('http');
+const fs     = require('fs');
+const path   = require('path');
+const url    = require('url');
+const bcrypt = require('bcrypt');
+const mysql  = require('mysql2');   // npm install mysql2
+
+require('dotenv').config();
 
 // ── Configuración ────────────────────────────────────────
-// Edita estos valores antes de arrancar
 const CONFIG = {
-  PORT:    3000,          // Puerto interno de Node.js (Apache lo redirige aquí)
-  DB_HOST: 'localhost',   // IP del servidor MySQL si está en otra máquina
-  DB_PORT: 3306,
-  DB_USER: 'taller_user', // Usuario creado en MySQL (paso 3.2 de la guía)
-  DB_PASS: 'mi_contrasena', // Encriptar en MD5, usar semilla diferente
-  DB_NAME: 'Gestion_Taller',
+  PORT:    process.env.PORT    || 3000,
+  DB_HOST: process.env.DB_HOST || 'localhost',
+  DB_PORT: process.env.DB_PORT || 3306,
+  DB_USER: process.env.DB_USER,
+  DB_PASS: process.env.DB_PASS,
+  DB_NAME: process.env.DB_NAME,
 };
 
 // ── Tipos MIME para archivos estáticos ───────────────────
@@ -160,11 +162,12 @@ async function getMaterial(codigo) {
         }
 
         const [rows] = await db.query(
-          'SELECT id FROM usuarios WHERE nombre = ? AND contrasena = ? LIMIT 1',
-          [usuario, contrasena]
+          'SELECT contrasena FROM usuarios WHERE nombre = ? LIMIT 1',
+          [usuario]
         );
 
-        res.writeHead(302, { Location: rows.length ? '/armario.html' : '/?error=1' });
+        const ok = rows.length && await bcrypt.compare(contrasena, rows[0].contrasena);
+        res.writeHead(302, { Location: ok ? '/almacen.html' : '/?error=1' });
         res.end();
       } catch (err) {
         console.error('[Login error]', err.message);
