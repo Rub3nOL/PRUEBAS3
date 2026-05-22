@@ -3,7 +3,7 @@ name: Cuaderno de trabajo
 about: Registro diario de la jornada de trabajo
 title: ''
 labels: ''
-assignees: ''
+assignees: foover, joaquinlopezperez, Rub3nOL, MarioRevillaAbarquero
 
 ---
 

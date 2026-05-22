@@ -1,0 +1,40 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+  <diagram name="Página-1" id="cpDlAWfZlYPGKoBSWx7F">
+    <mxGraphModel dx="1568" dy="826" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="gqQphuoN0gyC8b90kD9J-2" value="ElementoInventario" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="160" width="140" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="gqQphuoN0gyC8b90kD9J-3" value="id_elemento&lt;div&gt;nombre&lt;/div&gt;&lt;div&gt;descripcion&lt;/div&gt;&lt;div&gt;cantidad&lt;/div&gt;&lt;div&gt;estado&lt;/div&gt;&lt;div&gt;fecha_alta&lt;/div&gt;&lt;div&gt;observaciones&lt;/div&gt;&lt;div&gt;id_categoria&lt;/div&gt;&lt;div&gt;id_ubicacion&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="gqQphuoN0gyC8b90kD9J-2">
+          <mxGeometry y="30" width="140" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="gqQphuoN0gyC8b90kD9J-9" value="Categoria" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="350" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="gqQphuoN0gyC8b90kD9J-10" value="id_categoria&lt;div&gt;nombre&lt;/div&gt;&lt;div&gt;descripcion&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="gqQphuoN0gyC8b90kD9J-9">
+          <mxGeometry y="30" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="gqQphuoN0gyC8b90kD9J-16" value="Ubicacion" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="420" width="140" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="gqQphuoN0gyC8b90kD9J-17" value="id_ubicacion&lt;div&gt;codigo_armario&lt;/div&gt;&lt;div&gt;balda&lt;/div&gt;&lt;div&gt;descripcion&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="gqQphuoN0gyC8b90kD9J-16">
+          <mxGeometry y="30" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="gqQphuoN0gyC8b90kD9J-29" value="Taller" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="270" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="gqQphuoN0gyC8b90kD9J-30" value="Usuario" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="150" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="gqQphuoN0gyC8b90kD9J-31" value="Accede" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="125" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="gqQphuoN0gyC8b90kD9J-32" value="Informe" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="320" width="70" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

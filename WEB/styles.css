@@ -717,6 +717,52 @@ a.zona:active { filter: brightness(0.9); }
 }
 
 /* ============================================================
+   BADGE DE USUARIO (cabecera de todas las páginas)
+   ============================================================ */
+.user-badge {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.user-badge-name {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.user-badge-rol {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+
+.user-badge-rol[data-rol="PROFESOR"] {
+  background: #1e3a5f;
+  color: #60a5fa;
+}
+
+.user-badge-rol[data-rol="ADMINISTRADOR"] {
+  background: #3b2000;
+  color: #fbbf24;
+}
+
+.user-badge--fixed {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  z-index: 999;
+  background: rgba(10, 16, 24, 0.85);
+  padding: 5px 10px;
+  border: 1px solid rgba(45, 212, 191, 0.2);
+  backdrop-filter: blur(6px);
+}
+
+/* ============================================================
    LOGIN (index.html)
    ============================================================ */
 .login-body {
@@ -1211,7 +1257,7 @@ body.inicio-body {
    PLANO (plano.html)
    ============================================================ */
 body.plano-body {
-  background: #efefef;
+  background: #0A1018;
   display: flex;
   justify-content: center;
   align-items: center;

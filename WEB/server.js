@@ -162,12 +162,20 @@ async function getMaterial(codigo) {
         }
 
         const [rows] = await db.query(
-          'SELECT contrasena FROM usuarios WHERE nombre = ? LIMIT 1',
+          'SELECT contrasena, rol FROM usuarios WHERE nombre = ? LIMIT 1',
           [usuario]
         );
 
         const ok = rows.length && await bcrypt.compare(contrasena, rows[0].contrasena);
-        res.writeHead(302, { Location: ok ? '/inicio.html' : '/?error=1' });
+        if (!ok) {
+          res.writeHead(302, { Location: '/?error=1' });
+          res.end();
+          return;
+        }
+
+        const dest = '/inicio.html?nombre=' + encodeURIComponent(usuario)
+                   + '&rol=' + encodeURIComponent(rows[0].rol);
+        res.writeHead(302, { Location: dest });
         res.end();
       } catch (err) {
         console.error('[Login error]', err.message);

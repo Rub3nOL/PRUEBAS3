@@ -1,0 +1,7 @@
+Máquina 1 (Servidor de Datos):
+https://educantabria.sharepoint.com/:u:/r/sites/MINIRETODAM1DAW1-2026-39009471-RETO-DAW1-Equipo1/Documentos%20compartidos/Ubuntu%20Server%20-%20Equipo1%20-%20MV1.ova?csf=1&web=1&e=8UE1wy
+
+Máquina 2 (Servidor de Servidor):
+https://educantabria.sharepoint.com/:u:/r/sites/MINIRETODAM1DAW1-2026-39009471-RETO-DAW1-Equipo1/Documentos%20compartidos/Ubuntu%20Server%20-%20Equipo1%20-%20MV2.ova?csf=1&web=1&e=EK9wFe
+
+.
